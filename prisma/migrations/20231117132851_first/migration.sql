@@ -17,6 +17,8 @@ CREATE TABLE `exams` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `kelas` VARCHAR(255) NOT NULL,
     `url` VARCHAR(255) NOT NULL,
+    `start_time` DATETIME(3) NOT NULL,
+    `end_time` DATETIME(3) NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
 
