@@ -24,6 +24,7 @@ const examSchema = z.object({
 type ExamSchema = z.infer<typeof examSchema>;
 
 export default function CreateExamModal() {
+  const [open, setOpen] = useState(false);
   const [errorAlert, setErrorAlert] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -37,11 +38,18 @@ export default function CreateExamModal() {
   });
 
   const onSubmit: SubmitHandler<ExamSchema> = async (data) => {
-    console.log(new Date(data.startTime).getHours());
+    let res = await fetch("/api/exam", {
+      method: "post",
+      body: JSON.stringify(data),
+    });
+
+    const result = await res.json();
+    setOpen(false);
+    router.refresh();
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <button className="bg-[#51459E] py-2 px-5 rounded-lg text-white">
           Create New Exam

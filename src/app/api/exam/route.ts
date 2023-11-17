@@ -8,6 +8,8 @@ export async function POST(request: Request) {
       data: {
         kelas: body.kelas,
         url: body.url,
+        start_time: new Date(body.startTime),
+        end_time: new Date(body.endTime),
       },
     });
 
@@ -15,9 +17,9 @@ export async function POST(request: Request) {
       { status: "success", message: "exam data created" },
       { status: 201 }
     );
-  } catch (error) {
+  } catch (error: any) {
     return Response.json(
-      { status: "error", message: "error occured" },
+      { status: "error", message: error.message },
       { status: 400 }
     );
   }

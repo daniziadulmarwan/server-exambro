@@ -38,15 +38,18 @@ const Profile = () => {
           </div>
 
           <div className="mt-11 flex justify-center">
-            <div className="flex flex-col justify-center items-center">
-              <div className="w-16 h-16 rounded-full bg-[#EB8133] overflow-hidden">
-                <Image
-                  src="/dani.png"
-                  width={64}
-                  height={64}
-                  alt="Dani Profile"
-                />
+            <div className="flex flex-col justify-center items-center relative">
+              <div className="border-[5px] border-[#51459E] rounded-full p-1 ">
+                <div className="w-16 h-16 rounded-full bg-[#EB8133] overflow-hidden">
+                  <Image
+                    src="/dani.png"
+                    width={64}
+                    height={64}
+                    alt="Dani Profile"
+                  />
+                </div>
               </div>
+
               <h5 className="text-[#505887] text-base font-semibold mt-2">
                 Hasan ZM
               </h5>
