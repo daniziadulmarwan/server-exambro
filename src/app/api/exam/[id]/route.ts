@@ -1,4 +1,4 @@
-import { prisma } from "@/libs/prisma";
+import { prisma } from "@/lib/prisma";
 
 export async function PUT(request: Request, id: any) {
   let body = await request.json();

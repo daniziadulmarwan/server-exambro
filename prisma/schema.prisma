@@ -18,6 +18,16 @@ model User {
   @@map("users")
 }
 
+model Kelas {
+  id         Int      @id @default(autoincrement())
+  title      String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  exam       Exam[]
+
+  @@map("kelas")
+}
+
 model Exam {
   id         Int      @id @default(autoincrement())
   kelas      String   @db.VarChar(255)
@@ -26,6 +36,8 @@ model Exam {
   end_time   DateTime
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  Kelas      Kelas?   @relation(fields: [kelas_id], references: [id])
+  kelas_id   Int?
 
   @@map("exams")
 }

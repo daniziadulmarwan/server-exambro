@@ -1,5 +1,5 @@
 import CreateExamModal from "@/components/exams/CreateExamModal";
-import { prisma } from "@/libs/prisma";
+import { prisma } from "@/lib/prisma";
 import { PenSquare, X } from "lucide-react";
 import React from "react";
 import moment from "moment";
