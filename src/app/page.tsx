@@ -1,6 +1,7 @@
 import SignInForm from "@/components/auth/SignInForm";
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 
 function Signin() {
   return (
@@ -12,6 +13,15 @@ function Signin() {
         </h5>
 
         <SignInForm />
+
+        <div className="text-center mt-10">
+          <span>
+            Don't have an account ?{" "}
+            <Link href="/signup" className="text-[#F8AD15]">
+              Register
+            </Link>
+          </span>
+        </div>
       </div>
 
       {/* Stage Right */}

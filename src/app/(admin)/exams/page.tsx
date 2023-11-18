@@ -4,6 +4,7 @@ import { PenSquare, X } from "lucide-react";
 import React from "react";
 import moment from "moment";
 import "moment/locale/id"; // without this line it didn't work
+import EditExamModal from "@/components/exams/EditExamModal";
 
 moment.locale("id");
 
@@ -22,7 +23,6 @@ export async function getExams() {
 
 async function ExamsPage() {
   const datas: ExamType[] = await getExams();
-  console.log(datas);
 
   return (
     <section className="mt-7 rounded-xl flex flex-col justify-center px-5 w-auto">
@@ -53,7 +53,10 @@ async function ExamsPage() {
           </thead>
           <tbody>
             {datas.map((item, i) => (
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <tr
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                key={item.id}
+              >
                 <th
                   scope="row"
                   className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -68,9 +71,7 @@ async function ExamsPage() {
                   {item.end_time.getHours() - item.start_time.getHours()} Jam
                 </td>
                 <td className="px-6 py-4 flex gap-1">
-                  <button className="bg-yellow-100 rounded-md py-2 px-2 border border-yellow-200">
-                    <PenSquare size={14} className="stroke-yellow-500" />
-                  </button>
+                  <EditExamModal data={item} />
                   <button className="bg-red-100 rounded-md py-2 px-2 border border-red-200">
                     <X size={14} className="stroke-red-500" />
                   </button>
