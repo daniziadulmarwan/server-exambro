@@ -1,8 +1,12 @@
 import { Bell, MessagesSquare, User2 } from "lucide-react";
 import Image from "next/image";
 import React from "react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
-const Profile = () => {
+const Profile = async () => {
+  const session = await getServerSession(authOptions);
+
   return (
     <section className="w-[290px] h-screen fixed bg-white right-0">
       <div className="absolute">
@@ -51,7 +55,7 @@ const Profile = () => {
               </div>
 
               <h5 className="text-[#505887] text-base font-semibold mt-2">
-                Hasan ZM
+                {session?.user?.name}
               </h5>
               <p className="text-[#9698AB] text-sm">Programmer</p>
             </div>
