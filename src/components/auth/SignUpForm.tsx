@@ -26,6 +26,7 @@ const signupSchema = z
 type SignUpSchema = z.infer<typeof signupSchema>;
 
 const SignUpForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [errorAlert, setErrorAlert] = useState("");
   const router = useRouter();
 
@@ -38,22 +39,20 @@ const SignUpForm = () => {
   });
 
   const onSubmit: SubmitHandler<SignUpSchema> = async (data) => {
-    console.log(data);
-    try {
-      const res = await fetch("/api/auth/register", {
-        method: "post",
-        body: JSON.stringify(data),
-      });
-      const result = await res.json();
-      console.log(result);
+    setIsLoading(true);
+    const res = await fetch("/api/auth/register", {
+      method: "post",
+      body: JSON.stringify(data),
+    });
+    const result = await res.json();
+    console.log(result);
 
-      if (result.status !== "oke") {
-        setErrorAlert(result.message);
-      } else {
-        router.push("/");
-      }
-    } catch (error: any) {
-      console.log(error);
+    if (result.status !== "oke") {
+      setIsLoading(false);
+      setErrorAlert(result.message);
+    } else {
+      router.push("/");
+      setIsLoading(false);
     }
   };
 
@@ -145,7 +144,7 @@ const SignUpForm = () => {
         type="submit"
         className="bg-[#F8AD15] w-full py-3 rounded-md text-white"
       >
-        Sign Up
+        {isLoading ? "Loading..." : "Sign Up"}
       </button>
     </form>
   );
