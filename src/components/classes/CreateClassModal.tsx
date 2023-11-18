@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -23,6 +23,7 @@ export default function CreateClassModal() {
   const [open, setOpen] = useState(false);
   const [errorAlert, setErrorAlert] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
   const router = useRouter();
 
   const {

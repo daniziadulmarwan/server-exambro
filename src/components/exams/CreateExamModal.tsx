@@ -9,13 +9,13 @@ import {
 } from "@/components/ui/dialog";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const examSchema = z.object({
   kelas: z.string().min(1, { message: "Kelas is required" }),
-  url: z.string().min(1, { message: "Password is required" }),
+  url: z.string().min(1, { message: "Url is required" }),
   startTime: z.string().min(1, { message: "Start time is required" }),
   endTime: z.string().min(1, { message: "End time is required" }),
 });
@@ -26,12 +26,26 @@ export default function CreateExamModal() {
   const [open, setOpen] = useState(false);
   const [errorAlert, setErrorAlert] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const [classes, setClasses] = useState([]);
+
   const router = useRouter();
+
+  const fetchClass = async () => {
+    let res = await fetch("/api/class", { method: "get" });
+    const data = await res.json();
+    setClasses(data.data);
+  };
+
+  useEffect(() => {
+    fetchClass();
+  }, []);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<ExamSchema>({
     resolver: zodResolver(examSchema),
   });
@@ -63,19 +77,26 @@ export default function CreateExamModal() {
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-4 py-4">
+            {/* Dificult */}
             <label className="block">
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
                 Kelas
               </span>
               <select
-                id="countries"
-                className="bg-white border focus:outline-none border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                 {...register("kelas")}
+                className="bg-white border focus:outline-none border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                onChange={(e) =>
+                  setValue("kelas", e.target.value, { shouldValidate: true })
+                }
               >
-                <option hidden>Pilih kelas</option>
-                <option value="ten">X (Sepuluh)</option>
-                <option value="eleven">XI (Sebelas)</option>
-                <option value="twelfe">XII (Dua belas)</option>
+                <option hidden value="">
+                  Choose one
+                </option>
+                {classes.map((item: any) => (
+                  <option key={item.id} value={item.id}>
+                    {item.title}
+                  </option>
+                ))}
               </select>
               {errors.kelas && (
                 <small className="text-red-500 mt-1">
