@@ -46,7 +46,7 @@ const Profile = async () => {
               <div className="border-[5px] border-[#51459E] rounded-full p-1 ">
                 <div className="w-16 h-16 rounded-full bg-[#EB8133] overflow-hidden">
                   <Image
-                    src="/dani.png"
+                    src="/user.png"
                     width={64}
                     height={64}
                     alt="Dani Profile"

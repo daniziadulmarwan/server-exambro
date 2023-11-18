@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 
 export async function GET(request: Request) {
-  let id = request.url.split("http://localhost:3000/api/v1/exam/")[1];
+  let id = request.url.split("http://localhost:3000/api/v1/exams/")[1];
 
   try {
     const result = await prisma.exam.findUnique({
