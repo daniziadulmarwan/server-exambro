@@ -1,4 +1,4 @@
-import { prisma } from "@/libs/prisma";
+import { prisma } from "@/lib/prisma";
 
 export async function POST(request: Request) {
   let body = await request.json();
@@ -6,7 +6,7 @@ export async function POST(request: Request) {
   try {
     await prisma.exam.create({
       data: {
-        kelas: body.kelas,
+        kelas_id: body.kelas,
         url: body.url,
         start_time: new Date(body.startTime),
         end_time: new Date(body.endTime),

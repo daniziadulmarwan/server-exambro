@@ -1,4 +1,5 @@
 "use client";
+import "react-datetime/css/react-datetime.css";
 import {
   Dialog,
   DialogContent,
@@ -12,13 +13,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-const examSchema = z.object({
-  kelas: z.string().min(1, { message: "Kelas is required" }),
-  url: z.string().min(1, { message: "Url is required" }),
-  startTime: z.string().min(1, { message: "Start time is required" }),
-  endTime: z.string().min(1, { message: "End time is required" }),
-});
+import { examSchema } from "@/schemas/examSchema";
+import Datetime from "react-datetime";
 
 type ExamSchema = z.infer<typeof examSchema>;
 
@@ -68,7 +64,7 @@ export default function CreateExamModal() {
           Create New Exam
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] -mt-20">
         <DialogHeader>
           <DialogTitle>Create New Exams</DialogTitle>
           <DialogDescription>
@@ -112,7 +108,6 @@ export default function CreateExamModal() {
               <input
                 type="text"
                 className="mt-1 px-3 py-3 bg-white border bordr-gray-300 placeholder-slate-400 focus:outline-none block w-full rounded-md sm:text-sm"
-                placeholder="https://daniziadulmarwan.github.io"
                 {...register("url")}
               />
               {errors.url && (
@@ -126,10 +121,13 @@ export default function CreateExamModal() {
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
                 Start Time
               </span>
-              <input
-                type="datetime-local"
-                className="mt-1 px-3 py-3 bg-white border bordr-gray-300 placeholder-slate-400 focus:outline-none block w-full rounded-md sm:text-sm"
-                {...register("startTime")}
+              <Datetime
+                className="focus:outline-none border border-slate-100 py-2 px-2 focus:border-none mt-1 rounded-md"
+                onChange={(e) =>
+                  setValue("startTime", e.toString(), {
+                    shouldValidate: true,
+                  })
+                }
               />
               {errors.startTime && (
                 <small className="text-red-500 mt-1">
@@ -142,10 +140,13 @@ export default function CreateExamModal() {
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
                 End Time
               </span>
-              <input
-                type="datetime-local"
-                className="mt-1 px-3 py-3 bg-white border bordr-gray-300 placeholder-slate-400 focus:outline-none block w-full rounded-md sm:text-sm"
-                {...register("endTime")}
+              <Datetime
+                className="focus:outline-none border border-slate-100 py-2 px-2 focus:border-none rounded-md mt-1"
+                onChange={(e) =>
+                  setValue("endTime", e.toString(), {
+                    shouldValidate: true,
+                  })
+                }
               />
               {errors.endTime && (
                 <small className="text-red-500 mt-1">

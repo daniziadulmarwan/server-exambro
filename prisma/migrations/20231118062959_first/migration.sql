@@ -25,7 +25,6 @@ CREATE TABLE `kelas` (
 -- CreateTable
 CREATE TABLE `exams` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `kelas` VARCHAR(255) NOT NULL,
     `url` VARCHAR(255) NOT NULL,
     `start_time` DATETIME(3) NOT NULL,
     `end_time` DATETIME(3) NOT NULL,

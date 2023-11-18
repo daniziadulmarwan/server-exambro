@@ -1,5 +1,6 @@
 import CreateClassModal from "@/components/classes/CreateClassModal";
 import DeleteDialog from "@/components/classes/DeleteDialog";
+import EditClassModal from "@/components/classes/EditClassModal";
 import { prisma } from "@/lib/prisma";
 import { X } from "lucide-react";
 import React from "react";
@@ -46,6 +47,7 @@ async function ClassesPage() {
                 </th>
                 <td className="px-10 py-4">{item.title}</td>
                 <td className="px-6 py-4 flex gap-1">
+                  <EditClassModal kelas={item} />
                   <DeleteDialog id={item.id} />
                 </td>
               </tr>
