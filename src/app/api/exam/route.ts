@@ -6,7 +6,7 @@ export async function POST(request: Request) {
   try {
     await prisma.exam.create({
       data: {
-        kelas_id: body.kelas,
+        kelas_id: +body.kelas,
         url: body.url,
         start_time: new Date(body.startTime),
         end_time: new Date(body.endTime),

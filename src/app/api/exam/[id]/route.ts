@@ -23,3 +23,22 @@ export async function PUT(request: Request, id: any) {
     );
   }
 }
+
+export async function DELETE(request: Request) {
+  let id = request.url.split("http://localhost:3000/api/exam/")[1];
+  try {
+    await prisma.exam.delete({
+      where: { id: +id },
+    });
+
+    return Response.json(
+      { status: "success", message: "successfully delete data" },
+      { status: 200 }
+    );
+  } catch (error: any) {
+    return Response.json(
+      { status: "error", message: error.message },
+      { status: 400 }
+    );
+  }
+}

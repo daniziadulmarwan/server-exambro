@@ -42,6 +42,7 @@ export default function CreateExamModal() {
     handleSubmit,
     formState: { errors },
     setValue,
+    reset,
   } = useForm<ExamSchema>({
     resolver: zodResolver(examSchema),
   });
@@ -53,8 +54,15 @@ export default function CreateExamModal() {
     });
 
     const result = await res.json();
-    setOpen(false);
-    router.refresh();
+    if (result.status === "success") {
+      setOpen(false);
+      router.refresh();
+      reset();
+    } else {
+      reset();
+      setOpen(false);
+      setErrorAlert(result.message);
+    }
   };
 
   return (
@@ -72,6 +80,13 @@ export default function CreateExamModal() {
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
+          {/* Alert */}
+          {errorAlert && (
+            <div className="bg-red-100 text-red-500 rounded-md py-2 w-full text-center">
+              {errorAlert}
+            </div>
+          )}
+
           <div className="grid gap-4 py-4">
             {/* Dificult */}
             <label className="block">

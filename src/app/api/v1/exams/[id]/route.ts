@@ -1,16 +1,19 @@
 import { prisma } from "@/lib/prisma";
 
-export async function GET() {
+export async function GET(request: Request) {
+  let id = request.url.split("http://localhost:3000/api/v1/exam/")[1];
+
   try {
-    const results = await prisma.exam.findMany({
+    const result = await prisma.exam.findUnique({
+      where: { id: +id },
       include: { Kelas: true },
     });
 
     return Response.json(
       {
         status: "success",
-        message: "success get exams data",
-        data: results,
+        message: "success get exams data by id",
+        data: result,
       },
       { status: 200 }
     );

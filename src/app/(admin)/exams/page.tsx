@@ -5,24 +5,19 @@ import React from "react";
 import moment from "moment";
 import "moment/locale/id"; // without this line it didn't work
 import EditExamModal from "@/components/exams/EditExamModal";
+import DeleteDialogExam from "@/components/exams/DeleteDialogExam";
 
 moment.locale("id");
 
-export type ExamType = {
-  id: number;
-  kelas: string;
-  url: string;
-  start_time: Date;
-  end_time: Date;
-};
-
 export async function getExams() {
-  let result = await prisma.exam.findMany();
+  let result = await prisma.exam.findMany({
+    include: { Kelas: true },
+  });
   return result;
 }
 
 async function ExamsPage() {
-  const datas: ExamType[] = await getExams();
+  const datas = await getExams();
 
   return (
     <section className="mt-7 rounded-xl flex flex-col justify-center px-5 w-auto">
@@ -63,7 +58,7 @@ async function ExamsPage() {
                 >
                   {i + 1}
                 </th>
-                <td className="px-10 py-4">{item.kelas}</td>
+                <td className="px-10 py-4">{item.Kelas?.title}</td>
                 <td className="px-10 py-4">
                   {moment(item.start_time).format("dddd").toString()}
                 </td>
@@ -72,9 +67,7 @@ async function ExamsPage() {
                 </td>
                 <td className="px-6 py-4 flex gap-1">
                   <EditExamModal data={item} />
-                  <button className="bg-red-100 rounded-md py-2 px-2 border border-red-200">
-                    <X size={14} className="stroke-red-500" />
-                  </button>
+                  <DeleteDialogExam id={item.id} />
                 </td>
               </tr>
             ))}
