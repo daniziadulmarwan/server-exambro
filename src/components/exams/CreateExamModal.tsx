@@ -151,7 +151,7 @@ export default function CreateExamModal() {
             </label>
 
             {/* Start Time */}
-            <label className="block">
+            {/* <label className="block">
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
                 Start Time
               </span>
@@ -168,7 +168,9 @@ export default function CreateExamModal() {
                   {errors.startTime.message}
                 </small>
               )}
-            </label>
+            </label> */}
+
+            <input type="datetime-local" {...register("startTime")} />
 
             {/* End Time */}
             <label className="block">
