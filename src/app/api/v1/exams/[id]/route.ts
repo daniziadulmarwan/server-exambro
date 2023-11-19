@@ -6,7 +6,7 @@ export async function GET(request: Request) {
   try {
     const result = await prisma.exam.findUnique({
       where: { id: +id },
-      include: { Kelas: true },
+      include: { kelas: true },
     });
 
     return Response.json(

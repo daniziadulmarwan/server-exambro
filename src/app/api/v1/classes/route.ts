@@ -2,14 +2,12 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET() {
   try {
-    const results = await prisma.exam.findMany({
-      include: { kelas: true },
-    });
+    const results = await prisma.kelas.findMany();
 
     return Response.json(
       {
         status: "success",
-        message: "success get exams data",
+        message: "success get kelas data",
         data: results,
       },
       { status: 200 }
