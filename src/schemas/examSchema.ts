@@ -4,6 +4,9 @@ export const examSchema = z.object({
   kelas: z
     .string({ required_error: "Url is required" })
     .min(1, { message: "Kelas is required" }),
+  mapel: z
+    .string({ required_error: "Mapel is required" })
+    .min(1, { message: "Mapel is required" }),
   url: z
     .string({ required_error: "Url is required" })
     .min(1, { message: "Url is required" }),

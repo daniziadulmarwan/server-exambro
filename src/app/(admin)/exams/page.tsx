@@ -1,6 +1,5 @@
 import CreateExamModal from "@/components/exams/CreateExamModal";
 import { prisma } from "@/lib/prisma";
-import { PenSquare, X } from "lucide-react";
 import React from "react";
 import moment from "moment";
 import "moment/locale/id"; // without this line it didn't work
@@ -11,7 +10,7 @@ moment.locale("id");
 
 export async function getExams() {
   let result = await prisma.exam.findMany({
-    include: { Kelas: true },
+    include: { kelas: true },
   });
   return result;
 }
@@ -36,6 +35,9 @@ async function ExamsPage() {
                 Kelas
               </th>
               <th scope="col" className="px-10 py-3">
+                Mapel
+              </th>
+              <th scope="col" className="px-10 py-3">
                 Hari
               </th>
               <th scope="col" className="px-10 py-3">
@@ -58,7 +60,8 @@ async function ExamsPage() {
                 >
                   {i + 1}
                 </th>
-                <td className="px-10 py-4">{item.Kelas?.title}</td>
+                <td className="px-10 py-4">{item.kelas?.title}</td>
+                <td className="px-10 py-4">{item.mapel}</td>
                 <td className="px-10 py-4">
                   {moment(item.start_time).format("dddd").toString()}
                 </td>
@@ -66,7 +69,7 @@ async function ExamsPage() {
                   {item.end_time.getHours() - item.start_time.getHours()} Jam
                 </td>
                 <td className="px-6 py-4 flex gap-1">
-                  <EditExamModal data={item} />
+                  {/* <EditExamModal data={item} /> */}
                   <DeleteDialogExam id={item.id} />
                 </td>
               </tr>

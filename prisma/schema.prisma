@@ -30,12 +30,13 @@ model Kelas {
 
 model Exam {
   id         Int      @id @default(autoincrement())
+  mapel      String
   url        String   @db.VarChar(255)
   start_time DateTime
   end_time   DateTime
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  Kelas      Kelas?   @relation(fields: [kelas_id], references: [id])
+  kelas      Kelas?   @relation(fields: [kelas_id], references: [id])
   kelas_id   Int?
 
   @@map("exams")

@@ -116,6 +116,24 @@ export default function CreateExamModal() {
               )}
             </label>
 
+            {/* Mapel */}
+            <label className="block">
+              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                Mata Pelajaran
+              </span>
+              <input
+                type="text"
+                className="mt-1 px-3 py-3 bg-white border bordr-gray-300 placeholder-slate-400 focus:outline-none block w-full rounded-md sm:text-sm"
+                {...register("mapel")}
+              />
+              {errors.mapel && (
+                <small className="text-red-500 mt-1">
+                  {errors.mapel.message}
+                </small>
+              )}
+            </label>
+
+            {/* Url */}
             <label className="block">
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
                 Url Address
@@ -132,6 +150,7 @@ export default function CreateExamModal() {
               )}
             </label>
 
+            {/* Start Time */}
             <label className="block">
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
                 Start Time
@@ -151,6 +170,7 @@ export default function CreateExamModal() {
               )}
             </label>
 
+            {/* End Time */}
             <label className="block">
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
                 End Time
@@ -170,7 +190,10 @@ export default function CreateExamModal() {
               )}
             </label>
           </div>
-          <button className="bg-[#51459E] py-2 px-5 w-full rounded-md text-white">
+          <button
+            type="submit"
+            className="bg-[#51459E] py-2 px-5 w-full rounded-md text-white"
+          >
             Save Data
           </button>
         </form>
